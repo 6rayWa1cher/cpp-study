@@ -15,5 +15,5 @@ add_executable(hw2_1 executables/hw2_1_e.cpp hw2.1/definefun.h)
 
 add_executable(t1 executables/t1.cpp)
 
-add_executable(hw3 hw3/numcast executables/hw3.cpp)
-add_executable(tests_hw3 catch.hpp tests/hw3.cpp hw3/numcast)
+add_executable(hw3 hw3/numcast executables/hw3.cpp hw3/stringops.cpp hw3/stringops.h hw3/sortc.cpp hw3/sortc.h)
+add_executable(tests_hw3 catch.hpp tests/hw3.cpp hw3/numcast hw3/stringops.cpp hw3/stringops.h hw3/sortc.cpp hw3/sortc.h)

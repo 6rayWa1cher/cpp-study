@@ -32,12 +32,16 @@ int numCast(const std::string num, const int from_system) {
     unsigned degree = num.size() - 1;
     for (char c : num) {
         if (c == '-') {
-            out *= -1;
+
         } else if (c <= '9') {
             out += static_cast<int>(c - '0') * pow(from_system, degree);
         } else {
-            out += static_cast<int>(c - 'A') * pow(from_system, degree);
+            out += static_cast<int>(c - 'A' + 10) * pow(from_system, degree);
         }
+        --degree;
+    }
+    if (num[0] == '-') {
+        out *= -1;
     }
     return out;
 }
