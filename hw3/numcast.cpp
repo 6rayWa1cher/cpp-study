@@ -34,9 +34,9 @@ int numCast(const std::string num, const int from_system) {
         if (c == '-') {
 
         } else if (c <= '9') {
-            out += static_cast<int>(c - '0') * pow(from_system, degree);
+            out += (c - '0') * static_cast<int>(pow(from_system, degree));
         } else {
-            out += static_cast<int>(c - 'A' + 10) * pow(from_system, degree);
+            out += (c - 'A' + 10) * static_cast<int>(pow(from_system, degree));
         }
         --degree;
     }
