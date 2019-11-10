@@ -5,6 +5,6 @@
 #include "../hw2.1/definefun.h"
 
 int main() {
-    std::cout << isDebug();
+	std::cout << isDebug();
 }
 

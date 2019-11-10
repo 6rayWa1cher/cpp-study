@@ -8,17 +8,17 @@
 #include <vector>
 
 template<typename T>
-std::vector<T> map(std::vector<T> v, T(&fn)(T));
+std::vector<T> map(std::vector<T> v, T(& fn)(T));
 
 
 template<typename T>
-std::vector<T> map(std::vector<T> v, T(&fn)(T)) {
-    //std::vector<T> out;
-    for (T &elem : v) {
-        elem = fn(elem);
-        //out.push_back(fn(elem));
-    }
-    return v;
+std::vector<T> map(std::vector<T> v, T(& fn)(T)) {
+	//std::vector<T> out;
+	for (T& elem : v) {
+		elem = fn(elem);
+		//out.push_back(fn(elem));
+	}
+	return v;
 }
 
 #endif //EDUSANDBOX_FUNCTIONALPROG_H

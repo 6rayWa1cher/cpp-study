@@ -7,10 +7,10 @@
 #include "../catch.hpp"
 
 TEST_CASE("Primes are computed", "[isPrime]") {
-    REQUIRE(!isPrime(1));
-    REQUIRE(isPrime(2));
-    REQUIRE(isPrime(5));
-    REQUIRE(!isPrime(6));
-    REQUIRE(!isPrime(42));
-    REQUIRE(isPrime(17));
+	REQUIRE(!isPrime(1));
+	REQUIRE(isPrime(2));
+	REQUIRE(isPrime(5));
+	REQUIRE(!isPrime(6));
+	REQUIRE(!isPrime(42));
+	REQUIRE(isPrime(17));
 }

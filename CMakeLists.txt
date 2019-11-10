@@ -19,3 +19,6 @@ add_executable(tests_hw3 catch.hpp tests/hw3.cpp hw3/numcast hw3/stringops.cpp h
 
 add_executable(hw3_1 hw3_1/functionalprog.h)
 add_executable(tests_hw3_1 tests/hw3_1.cpp hw3_1/functionalprog.h)
+
+add_executable(hw5 hw5/rational.cpp hw5/rational.h)
+add_executable(tests_hw5 tests/hw5.cpp hw5/rational.cpp hw5/rational.h)

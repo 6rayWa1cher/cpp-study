@@ -6,12 +6,12 @@
 #include "binfunc.h"
 
 void printBinary(int m) {
-    unsigned int number = m;
-    std::string sb;
-    while (number != 0) {
-        sb = std::to_string(number & 0b1u) + sb; // NOLINT(performance-inefficient-string-concatenation)
-        number >>= 1u;
-    }
-    std::cout << sb << std::endl;
+	unsigned int number = m;
+	std::string sb;
+	while (number != 0) {
+		sb = std::to_string(number & 0b1u) + sb; // NOLINT(performance-inefficient-string-concatenation)
+		number >>= 1u;
+	}
+	std::cout << sb << std::endl;
 }
 

@@ -7,6 +7,6 @@
 
 #include <vector>
 
-void bubbleSort(std::vector<int> &vector);
+void bubbleSort(std::vector<int>& vector);
 
 #endif //EDUSANDBOX_SORTC_H

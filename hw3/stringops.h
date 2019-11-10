@@ -8,6 +8,6 @@
 #include <vector>
 #include <iostream>
 
-std::vector<std::string> split(const std::string &string, char delimiter);
+std::vector<std::string> split(const std::string& string, char delimiter);
 
 #endif //EDUSANDBOX_STRINGOPS_H
