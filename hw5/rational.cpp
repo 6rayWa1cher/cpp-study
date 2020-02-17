@@ -9,12 +9,8 @@ ArithmeticException::ArithmeticException(const std::string& message) : runtime_e
 }
 
 
-InputError::InputError(const std::string& message) : runtime_error(message) {
-
-}
-
-
-int gcd(int a, int b) {
+template<typename T>
+int gcd(T a, T b) {
 	assert(a >= 0 && b >= 0);
 	while (a != 0 && b != 0) {
 		if (a > b) {
@@ -26,43 +22,45 @@ int gcd(int a, int b) {
 	return a + b;
 }
 
-int lcm(int a, int b) {
+template<typename T>
+int lcm(T a, T b) {
 	return abs(a * b) / gcd(a, b);
 }
 
-std::istream& operator>>(std::istream& istream, Rational& rational) {
-	int a, b;
-	char slash;
+template<typename T>
+std::istream& operator>>(std::istream& istream, Rational<T>& rational) {
+	T a, b;
+	char slash = '/';
 	istream >> a >> slash >> b;
 	if (istream) {
 		try {
-			rational = Rational(a, b);
+			rational = Rational<T>(a, b);
 		} catch (ArithmeticException& e) {
-//			istream.clear(std::ios_base::badbit);
-			throw e;
+			istream.clear(std::ios_base::failbit);
 		}
-	} else {
-		throw InputError("Bad rational");
 	}
 	return istream;
 }
 
-std::ostream& operator<<(std::ostream& ostream, const Rational& rational) {
+template<typename T>
+std::ostream& operator<<(std::ostream& ostream, const Rational<T>& rational) {
 	ostream << rational.toString();
 	return ostream;
 }
 
-Rational& operator*=(Rational& r1, const Rational& r2) {
+template<typename T>
+Rational<T>& operator*=(Rational<T>& r1, const Rational<T>& r2) {
 	r1._numerator *= r2.getNumerator();
 	r1._denominator *= r2.getDenominator();
 	r1.normalizeRational();
 	return r1;
 }
 
-Rational& operator+=(Rational& r1, const Rational& r2) {
-	int denominator = r1.getDenominator() == r2.getDenominator() ?
-	                  r1.getDenominator() :
-	                  lcm(r1.getDenominator(), r2.getDenominator());
+template<typename T>
+Rational<T>& operator+=(Rational<T>& r1, const Rational<T>& r2) {
+	T denominator = r1.getDenominator() == r2.getDenominator() ?
+	                r1.getDenominator() :
+	                lcm(r1.getDenominator(), r2.getDenominator());
 	r1._numerator = (denominator / r1.getDenominator()) * r1.getNumerator() +
 	                (denominator / r2.getDenominator()) * r2.getNumerator();
 	r1._denominator = denominator;
@@ -70,42 +68,52 @@ Rational& operator+=(Rational& r1, const Rational& r2) {
 	return r1;
 }
 
-Rational operator-(const Rational& r) {
+template<typename T>
+Rational<T> operator-(const Rational<T>& r) {
 	return {-r.getNumerator(), r.getDenominator()};
 }
 
-Rational operator+(const Rational& r1, const Rational& r2) {
-	Rational r = r1;
+template<typename T>
+Rational<T> operator+(const Rational<T>& r1, const Rational<T>& r2) {
+	Rational<T> r = r1;
 	r += r2;
 	return r;
 }
 
-Rational operator-(const Rational& r1, const Rational& r2) {
+template<typename T>
+Rational<T> operator-(const Rational<T>& r1, const Rational<T>& r2) {
 	return r1 + (-r2);
 }
 
-Rational operator*(const Rational& r1, const Rational& r2) {
-	Rational r = r1;
+template<typename T>
+Rational<T> operator*(const Rational<T>& r1, const Rational<T>& r2) {
+	Rational<T> r = r1;
 	r *= r2;
 	return r;
 }
 
-bool operator==(const Rational& lhs, const Rational& rhs) {
-	return lhs._numerator == rhs._numerator &&
-	       lhs._denominator == rhs._denominator;
-}
+//template<typename L, typename R>
+//bool operator==(const Rational<L>& lhs, const Rational<R>& rhs) {
+//	if (typeid(L) != typeid(R)) return false;
+//	return lhs._numerator == rhs._numerator &&
+//	       lhs._denominator == rhs._denominator;
+//}
+//
+//template<typename L, typename R>
+//bool operator!=(const Rational<L>& lhs, const Rational<R>& rhs) {
+//	if (typeid(L) != typeid(R)) return true;
+//	return !(rhs == lhs);
+//}
 
-bool operator!=(const Rational& lhs, const Rational& rhs) {
-	return !(rhs == lhs);
-}
-
-bool operator>(const Rational& lhs, const Rational& rhs) {
-	int a = lhs.getNumerator(), b = lhs.getDenominator(),
+template<typename T>
+bool operator>(const Rational<T>& lhs, const Rational<T>& rhs) {
+	T a = lhs.getNumerator(), b = lhs.getDenominator(),
 			c = rhs.getNumerator(), d = rhs.getDenominator();
 	return a * d > c * b;
 }
 
-Rational::Rational(int num, int denom) {
+template<typename T>
+Rational<T>::Rational(T num, T denom) {
 	if (denom == 0) {
 		throw ArithmeticException("Denominator is zero");
 	}
@@ -114,11 +122,14 @@ Rational::Rational(int num, int denom) {
 	normalizeRational();
 }
 
-Rational::Rational(int num) : _numerator(num), _denominator(1) {}
+template<typename T>
+Rational<T>::Rational(T num) : _numerator(num), _denominator(1) {}
 
-Rational::Rational() : _numerator(0), _denominator(1) {}
+template<typename T>
+Rational<T>::Rational() : _numerator(0), _denominator(1) {}
 
-void Rational::normalizeRational() {
+template<typename T>
+void Rational<T>::normalizeRational() {
 	if (this->getDenominator() < 0) {
 		this->_numerator *= -1;
 		this->_denominator *= -1;
@@ -127,16 +138,70 @@ void Rational::normalizeRational() {
 		this->_denominator = 1;
 		return;
 	} else if (this->getNumerator() > 0) {
-		int gcdv = gcd(this->getNumerator(), this->getDenominator());
+		T gcdv = gcd(this->getNumerator(), this->getDenominator());
 		this->_numerator /= gcdv;
 		this->_denominator /= gcdv;
 	} else {
-		int gcdv = gcd(-this->getNumerator(), this->getDenominator());
+		T gcdv = gcd(-this->getNumerator(), this->getDenominator());
 		this->_numerator /= gcdv;
 		this->_denominator /= gcdv;
 	}
 }
 
-Rational::operator double() {
+template<typename T>
+Rational<T>::operator double() {
 	return static_cast<double>(this->getNumerator()) / static_cast<double>(this->getDenominator());
 }
+
+template<typename T>
+bool Rational<T>::operator==(const Rational& rhs) const {
+	return _numerator == rhs._numerator &&
+	       _denominator == rhs._denominator;
+}
+
+template<typename T>
+bool Rational<T>::operator!=(const Rational& rhs) const {
+	return !(rhs == *this);
+}
+
+template
+class Rational<int>;
+
+template Rational<int> operator-(const Rational<int>& r);
+
+template Rational<int> operator-(const Rational<int>& r1, const Rational<int>& r2);
+
+template std::istream& operator>>(std::istream& istream, Rational<int>& rational);
+
+template std::ostream& operator<<(std::ostream& ostream, const Rational<int>& rational);
+
+template Rational<int>& operator+=(Rational<int>& r1, const Rational<int>& r2);
+
+template Rational<int>& operator*=(Rational<int>& r1, const Rational<int>& r2);
+
+template Rational<int> operator+(const Rational<int>& r1, const Rational<int>& r2);
+
+template Rational<int> operator*(const Rational<int>& r1, const Rational<int>& r2);
+
+template bool operator>(const Rational<int>& lhs, const Rational<int>& rhs);
+
+template
+class Rational<long>;
+
+template Rational<long> operator-(const Rational<long>& r);
+
+template Rational<long> operator-(const Rational<long>& r1, const Rational<long>& r2);
+
+template std::istream& operator>>(std::istream& istream, Rational<long>& rational);
+
+template std::ostream& operator<<(std::ostream& ostream, const Rational<long>& rational);
+
+template Rational<long>& operator+=(Rational<long>& r1, const Rational<long>& r2);
+
+template Rational<long>& operator*=(Rational<long>& r1, const Rational<long>& r2);
+
+template Rational<long> operator+(const Rational<long>& r1, const Rational<long>& r2);
+
+template Rational<long> operator*(const Rational<long>& r1, const Rational<long>& r2);
+
+template bool operator>(const Rational<long>& lhs, const Rational<long>& rhs);

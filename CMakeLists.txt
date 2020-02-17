@@ -22,3 +22,6 @@ add_executable(tests_hw3_1 tests/hw3_1.cpp hw3_1/functionalprog.h)
 
 add_executable(hw5 hw5/rational.cpp hw5/rational.h)
 add_executable(tests_hw5 tests/hw5.cpp hw5/rational.cpp hw5/rational.h)
+
+add_executable(hw7 hw7/dispersion.cpp hw7/dispersion.h hw7/search.cpp hw7/search.h hw7/sequence.cpp hw7/sequence.h hw7/economics.cpp hw7/economics.h hw7/datepalindromes.cpp hw7/datepalindromes.h)
+add_executable(tests_hw7 hw7/dispersion.cpp hw7/dispersion.h tests/hw7.cpp hw7/search.cpp hw7/search.h hw7/sequence.cpp hw7/sequence.h hw7/economics.cpp hw7/economics.h hw7/datepalindromes.cpp hw7/datepalindromes.h)

@@ -13,29 +13,25 @@ public:
 	explicit ArithmeticException(const std::string& message);
 };
 
-class InputError : public std::runtime_error {
-public:
-	explicit InputError(const std::string& message);
-};
-
+template<typename T>
 class Rational {
 private:
-	int _numerator;
-	int _denominator; // Always must be not negative
+	T _numerator;
+	T _denominator; // Always must be not negative
 	void normalizeRational();
 
 public:
 	Rational();
 
-	explicit Rational(int num);
+	explicit Rational(T num);
 
-	Rational(int num, int denom);
+	Rational(T num, T denom);
 
-	int getNumerator() const {
+	T getNumerator() const {
 		return _numerator;
 	}
 
-	int getDenominator() const {
+	T getDenominator() const {
 		return _denominator;
 	}
 
@@ -43,37 +39,55 @@ public:
 		return std::to_string(getNumerator()) + "/" + std::to_string(getDenominator());
 	}
 
-	friend Rational& operator*=(Rational& r1, const Rational& r2);
+	template<typename J>
+	friend Rational<J>& operator*=(Rational<J>& r1, const Rational<J>& r2);
 
-	friend Rational& operator+=(Rational& r1, const Rational& r2);
+	template<typename J>
+	friend Rational<J>& operator+=(Rational<J>& r1, const Rational<J>& r2);
 
 	explicit operator double();
 
-	friend bool operator==(const Rational& lhs, const Rational& rhs);
+//	template<typename L, typename R>
+//	friend bool operator==(const Rational<L>& lhs, const Rational<R>& rhs);
+//
+//	template<typename L, typename R>
+//	friend bool operator!=(const Rational<L>& lhs, const Rational<R>& rhs);
+	bool operator==(const Rational& rhs) const;
 
-	friend bool operator!=(const Rational& lhs, const Rational& rhs);
+	bool operator!=(const Rational& rhs) const;
 };
 
-std::istream& operator>>(std::istream& istream, Rational& rational);
+template<typename T>
+std::istream& operator>>(std::istream& istream, Rational<T>& rational);
 
-std::ostream& operator<<(std::ostream& ostream, const Rational& rational);
+template<typename T>
+std::ostream& operator<<(std::ostream& ostream, const Rational<T>& rational);
 
-Rational& operator+=(Rational& r1, const Rational& r2);
+template<typename T>
+Rational<T>& operator+=(Rational<T>& r1, const Rational<T>& r2);
 
-Rational& operator*=(Rational& r1, const Rational& r2);
+template<typename T>
+Rational<T>& operator*=(Rational<T>& r1, const Rational<T>& r2);
 
-Rational operator-(const Rational& r);
+template<typename T>
+Rational<T> operator-(const Rational<T>& r);
 
-Rational operator+(const Rational& r1, const Rational& r2);
+template<typename T>
+Rational<T> operator+(const Rational<T>& r1, const Rational<T>& r2);
 
-Rational operator-(const Rational& r1, const Rational& r2);
+template<typename T>
+Rational<T> operator-(const Rational<T>& r1, const Rational<T>& r2);
 
-Rational operator*(const Rational& r1, const Rational& r2);
+template<typename T>
+Rational<T> operator*(const Rational<T>& r1, const Rational<T>& r2);
 
-bool operator==(const Rational& lhs, const Rational& rhs);
-
-bool operator!=(const Rational& lhs, const Rational& rhs);
-
-bool operator>(const Rational& lhs, const Rational& rhs);
+//template<typename T>
+//extern bool operator==(const Rational<T>& lhs, const Rational<T>& rhs);
+//
+//template<typename T>
+//extern bool operator!=(const Rational<T>& lhs, const Rational<T>& rhs);
+//
+template<typename T>
+bool operator>(const Rational<T>& lhs, const Rational<T>& rhs);
 
 #endif //EDUSANDBOX_RATIONAL_H
