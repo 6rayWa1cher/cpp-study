@@ -17,11 +17,17 @@ add_executable(tests_hw2_1 catch.hpp tests/hw2_1.cpp hw2.1/definefun.h)
 add_executable(hw3 hw3/numcast executables/hw3.cpp hw3/stringops.cpp hw3/stringops.h hw3/sortc.cpp hw3/sortc.h)
 add_executable(tests_hw3 catch.hpp tests/hw3.cpp hw3/numcast hw3/stringops.cpp hw3/stringops.h hw3/sortc.cpp hw3/sortc.h)
 
-add_executable(hw3_1 hw3_1/functionalprog.h)
-add_executable(tests_hw3_1 tests/hw3_1.cpp hw3_1/functionalprog.h)
+#add_executable(hw3_1 hw3_1/functionalprog.h)
+#add_executable(tests_hw3_1 tests/hw3_1.cpp hw3_1/functionalprog.h)
 
 add_executable(hw5 hw5/rational.cpp hw5/rational.h)
 add_executable(tests_hw5 tests/hw5.cpp hw5/rational.cpp hw5/rational.h)
 
 add_executable(hw7 hw7/dispersion.cpp hw7/dispersion.h hw7/search.cpp hw7/search.h hw7/sequence.cpp hw7/sequence.h hw7/economics.cpp hw7/economics.h hw7/datepalindromes.cpp hw7/datepalindromes.h)
 add_executable(tests_hw7 hw7/dispersion.cpp hw7/dispersion.h tests/hw7.cpp hw7/search.cpp hw7/search.h hw7/sequence.cpp hw7/sequence.h hw7/economics.cpp hw7/economics.h hw7/datepalindromes.cpp hw7/datepalindromes.h)
+
+add_executable(hw8 hw8/calc.cpp hw8/calc.h)
+add_executable(tests_hw8 hw8/calc.cpp hw8/calc.h tests/hw8.cpp)
+
+add_executable(hw9 hw9/persons.cpp hw9/persons.h executables/hw9.cpp hw9/list.cpp hw9/list.h hw9/hw9_utils.cpp hw9/hw9_utils.h)
+add_executable(tests_hw9 hw9/persons.cpp hw9/persons.h hw9/list.cpp hw9/list.h tests/hw9.cpp hw9/hw9_utils.cpp hw9/hw9_utils.h)
