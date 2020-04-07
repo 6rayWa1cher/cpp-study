@@ -31,3 +31,6 @@ add_executable(tests_hw8 hw8/calc.cpp hw8/calc.h tests/hw8.cpp)
 
 add_executable(hw9 hw9/persons.cpp hw9/persons.h executables/hw9.cpp hw9/list.cpp hw9/list.h hw9/hw9_utils.cpp hw9/hw9_utils.h)
 add_executable(tests_hw9 hw9/persons.cpp hw9/persons.h hw9/list.cpp hw9/list.h tests/hw9.cpp hw9/hw9_utils.cpp hw9/hw9_utils.h)
+
+add_executable(hw10 hw10/list2.cpp hw10/list2.h hw9/list.h hw9/list.cpp hw10/doublelinkedlist.cpp hw10/doublelinkedlist.h)
+add_executable(tests_hw10 hw10/list2.cpp hw10/list2.h hw9/list.h hw9/list.cpp tests/hw10.cpp hw10/doublelinkedlist.cpp hw10/doublelinkedlist.h)

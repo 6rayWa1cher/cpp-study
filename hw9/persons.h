@@ -2,6 +2,7 @@
 #define EDUSANDBOX_PERSONS_H
 
 #include <string>
+#include <vector>
 
 class TGUPerson {
 public:
