@@ -1,0 +1,101 @@
+Expr -> Expr8
+Expr8 -> Expr7 Expr8_
+Expr8_ -> || Expr7 Expr8_
+Expr8_ -> e
+Expr7 -> Expr6 Expr7_
+Expr7_ -> && Expr6 Expr7_
+Expr7_ -> e
+Expr6 -> Expr5 Expr6_
+Expr6_ -> == Expr5
+Expr6_ -> != Expr5
+Expr6_ -> e
+Expr5 -> Expr4 Expr5_
+Expr5_ -> > Expr4
+Expr5_ -> < Expr4
+Expr5_ -> <= Expr4
+Expr5_ -> e
+Expr4 -> Expr3 Expr4_
+Expr4_ -> + Expr3 Expr4_
+Expr4_ -> - Expr3 Expr4_
+Expr4_ -> e
+Expr3 -> Expr2 Expr3_
+Expr3_ -> * Expr2 Expr3_
+Expr3_ -> e
+Expr2 -> ! Expr1
+Expr2 -> Expr1
+Expr1 -> ++ Factor
+Expr1 -> Factor Expr1_
+Expr1_ -> ++
+Expr1_ -> e
+Factor -> ( Expr )
+Factor -> num
+Factor -> str
+Factor -> id Factor_
+Factor_ -> ( Arglist )
+Factor_ -> [ Expr ]
+Factor_ -> e
+Arglist -> Expr Arglist2
+Arglist -> e
+Arglist2 -> , Expr Arglist2
+Arglist2 -> e
+Stmt -> StmtInterceptor
+StmtInterceptor -> StmtControl
+StmtControl -> Instr
+StmtControl -> StmtWrap
+StmtWrap -> { StmtWrap_
+StmtWrap_ -> StmtIterator }
+StmtWrap_ -> }
+StmtIterator -> Stmt StmtIterator_
+StmtIterator_ -> StmtIterator
+StmtIterator_ -> ReturnBlock ;
+StmtIterator_ -> e
+Instr -> VarInit ;
+Instr -> AssignOrCall ;
+Instr -> WhileBlock
+Instr -> IfBlock
+Instr -> ForBlock
+Instr -> SwitchBlock
+Instr -> InputBlock ;
+Instr -> OutputBlock ;
+Instr -> ;
+VarInit -> VarInitType Vars
+VarInitType -> int
+VarInitType -> char
+Vars -> Var Vars_
+Vars_ -> , Var Vars_
+Vars_ -> e
+Var -> id Var_
+Var_ -> [ Var1_
+Var_ -> e
+Var_ -> = Expr
+Var1_ -> Expr ]
+Var1_ -> ] = str
+AssignOrCall -> id AssignOrCall2
+AssignOrCall -> ++ id AssignOrCall3
+AssignOrCall2 -> = Expr
+AssignOrCall2 -> [ Expr ] AssignOrCall4
+AssignOrCall2 -> ( Arglist )
+AssignOrCall2 -> ++
+AssignOrCall3 -> [ Expr ]
+AssignOrCall3 -> e
+AssignOrCall4 -> = Expr
+AssignOrCall4 -> ++
+IfBlock -> if ( Expr ) Stmt ElsePart
+ElsePart -> else Stmt
+ElsePart -> e
+WhileBlock -> while ( Expr ) Stmt
+SwitchBlock -> switch ( Expr ) { CaseBlock }
+CaseBlock -> case CaseBlock1_
+CaseBlock1_ -> num : Stmt CaseBlock2_
+CaseBlock1_ -> str : Stmt CaseBlock2_
+CaseBlock2_ -> CaseBlock
+CaseBlock2_ -> e
+InputBlock -> in id
+OutputBlock -> out Expr
+ReturnBlock -> return Expr
+ForBlock -> for ( ForInit ; ForEx ; ForOperator ) Stmt
+ForInit -> AssignOrCall
+ForInit -> e
+ForEx -> Expr
+ForEx -> e
+ForOperator -> AssignOrCall

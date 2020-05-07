@@ -4,6 +4,7 @@
 
 #include "search.h"
 #include <cmath>
+#include <limits>
 
 bool approxEquals(double a, double b) {
 	return abs(a - b) < 0.0000001;

@@ -4,6 +4,7 @@
 
 #include "economics.h"
 #include <numeric>
+#include <algorithm>
 
 void makeYearReport(const std::map<std::string, std::vector<int>>& employeeToSalaries, std::ostream& ostream) {
 	std::vector<std::pair<std::string, int>> employeeToYearSalary;
