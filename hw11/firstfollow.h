@@ -44,19 +44,21 @@ public:
 
     const std::map<std::string, std::set<std::string>> &getFirstForG() const;
 
-    const std::map<std::string, std::set<std::string>> &getFollowForG() const;
+	const std::map<std::string, std::set<std::string>>& getFollowForG() const;
 
-    Grammar();
+	Grammar();
 
-    ~Grammar();
+	~Grammar();
 
-    bool loadGrammar(std::istream &stream);
+	bool loadGrammar(std::istream& stream);
 
-    void printFirst(std::ostream &stream);
+	void printFirst(std::ostream& stream);
 
-    std::set<std::string> first(const std::vector<std::string> &);
+	void printFollow(std::ostream& stream);
 
-    std::set<std::string> follow(const std::string &);
+	std::set<std::string> first(const std::vector<std::string>&);
+
+	std::set<std::string> follow(const std::string&);
 };
 
 std::ostream &operator<<(std::ostream &stream, const Grammar &g);
