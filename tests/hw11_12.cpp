@@ -5,7 +5,7 @@
 #define CATCH_CONFIG_MAIN
 
 #include "../catch.hpp"
-#include "../hw11/firstfollow.h"
+#include "../hw11_12/firstfollow.h"
 
 TEST_CASE("Grammar test 1", "[Grammar]") {
 	Grammar grammar;

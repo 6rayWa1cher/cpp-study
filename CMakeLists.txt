@@ -35,5 +35,6 @@ add_executable(tests_hw9 hw9/persons.cpp hw9/persons.h hw9/list.cpp hw9/list.h t
 add_executable(hw10 hw10/list2.cpp hw10/list2.h hw9/list.h hw9/list.cpp hw10/doublelinkedlist.cpp hw10/doublelinkedlist.h)
 add_executable(tests_hw10 hw10/list2.cpp hw10/list2.h hw9/list.h hw9/list.cpp tests/hw10.cpp hw10/doublelinkedlist.cpp hw10/doublelinkedlist.h)
 
-add_executable(hw11 hw11/firstfollow.cpp hw11/firstfollow.h executables/hw11.cpp hw3/stringops.cpp hw3/stringops.h)
-add_executable(tests_hw11 tests/hw11.cpp hw11/firstfollow.cpp hw11/firstfollow.h hw3/stringops.cpp hw3/stringops.h)
+add_executable(hw11 hw11_12/firstfollow.cpp hw11_12/firstfollow.h executables/hw11.cpp hw3/stringops.cpp hw3/stringops.h)
+add_executable(hw12 hw11_12/firstfollow.cpp hw11_12/firstfollow.h executables/hw12.cpp hw3/stringops.cpp hw3/stringops.h)
+add_executable(tests_hw11 tests/hw11_12.cpp hw11_12/firstfollow.cpp hw11_12/firstfollow.h hw3/stringops.cpp hw3/stringops.h)

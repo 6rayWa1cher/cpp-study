@@ -2,7 +2,7 @@
 // Created by 6rayWa1cher on 07.05.2020.
 //
 
-#include "../hw11/firstfollow.h"
+#include "../hw11_12/firstfollow.h"
 #include <fstream>
 
 int main() {
@@ -18,31 +18,31 @@ int main() {
 
 	// тестирование FIRST
 	std::vector<std::string> alpha;
-	alpha.push_back("E");
+	alpha.emplace_back("E");
 	std::cout << grammar.first(alpha);
 	alpha.clear();
 
-	alpha.push_back("E'");
+	alpha.emplace_back("E'");
 	std::cout << grammar.first(alpha);
 	alpha.clear();
 
-	alpha.push_back("T");
+	alpha.emplace_back("T");
 	std::cout << grammar.first(alpha);
 	alpha.clear();
 
-	alpha.push_back("T'");
+	alpha.emplace_back("T'");
 	std::cout << grammar.first(alpha);
 	alpha.clear();
 
-	alpha.push_back("F");
+	alpha.emplace_back("F");
 	std::cout << grammar.first(alpha);
 	alpha.clear();
 
-	alpha.push_back(")");
+	alpha.emplace_back(")");
 	std::cout << grammar.first(alpha);
 	alpha.clear();
 
-	alpha.push_back("id");
+	alpha.emplace_back("id");
 	std::cout << grammar.first(alpha);
 	alpha.clear();
 
