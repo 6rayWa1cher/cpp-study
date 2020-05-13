@@ -4,6 +4,7 @@
 
 #include "../hw11_12/firstfollow.h"
 #include <fstream>
+#include <sstream>
 
 int main() {
 	Grammar grammar = Grammar();
@@ -17,4 +18,8 @@ int main() {
 	std::cout << std::endl << std::endl;
 	grammar.buildSATable();
 	grammar.printSATable(std::cout);
+
+	std::istringstream ss("( id + id * id");
+
+	std::cout << grammar.parse(ss);
 }

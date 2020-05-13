@@ -16,6 +16,16 @@ const std::string EPSILON = "e";
 
 std::ostream& operator<<(std::ostream& stream, const std::set<std::string>& terminals);
 
+class NotLL1Grammar : std::exception {
+	std::string stackWord;
+	std::string inputTerminal;
+
+	explicit operator std::string() const;
+
+public:
+	NotLL1Grammar(std::string stackWord, std::string inputTerminal);
+};
+
 enum SaCellStackOperation {
 	STACK_NOP, REP, POP
 };
@@ -30,10 +40,12 @@ enum SaCellReturn {
 
 class SaCell {
 public:
-	const SaCellInputOperation inputOperation;
-	const SaCellStackOperation stackOperation;
-	const SaCellReturn saCellReturn;
-	const int stackOperationValue;
+	SaCellInputOperation inputOperation = INPUT_NOP;
+	SaCellStackOperation stackOperation = STACK_NOP;
+	SaCellReturn saCellReturn = REJECT;
+	int stackOperationValue;
+
+	SaCell();
 
 	SaCell(SaCellInputOperation inputOperation, SaCellStackOperation stackOperation,
 	       SaCellReturn saCellReturn, int stackOperationValue);
@@ -94,6 +106,8 @@ public:
 	void printFirst(std::ostream& stream);
 
 	void printFollow(std::ostream& stream);
+
+	bool parse(std::istream& stream);
 
 	std::set<std::string> first(const std::vector<std::string>&);
 

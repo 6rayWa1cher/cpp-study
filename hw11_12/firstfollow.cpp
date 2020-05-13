@@ -13,6 +13,8 @@
 #include <utility>
 #include <functional>
 #include <algorithm>
+#include <stack>
+#include <memory>
 
 Grammar::Grammar() = default;
 
@@ -419,6 +421,69 @@ void Grammar::printSATable(std::ostream& stream) {
 	}
 }
 
+bool Grammar::parse(std::istream& stream) {
+	std::stack<std::string> stack;
+	stack.push("$");
+	stack.push(startNonTerminal);
+	std::string currTerminal;
+	bool requireNextSymbol = true;
+	SaCell saCell;
+	while (true) {
+		if (requireNextSymbol) {
+			if (stream.eof()) {
+				currTerminal = "";
+			} else {
+				stream >> currTerminal;
+			}
+			requireNextSymbol = false;
+		}
+		const std::string& currInputTerminal = currTerminal.empty() ? "$" : currTerminal;
+		std::set<SaCell> set = saTable[stack.top()][currInputTerminal];
+		if (set.size() >= 2) {
+			throw NotLL1Grammar(stack.top(), currInputTerminal);
+		} else if (set.size() == 1) {
+			saCell = *set.begin();
+		} else {
+			saCell = SaCell();
+		}
+		int ruleNumber;
+		std::vector<std::string> *rightSide;
+		switch (saCell.stackOperation) {
+			case STACK_NOP:
+				break;
+			case REP:
+				if (stack.top() != "$") stack.pop();
+				ruleNumber = saCell.stackOperationValue;
+				rightSide = &enumeratedRules[ruleNumber].second;
+				if (*rightSide != std::vector<std::string>{EPSILON}) {
+					for (auto it = rightSide->rbegin(); it != rightSide->rend(); it++) {
+						stack.push(*it);
+					}
+				}
+				break;
+			case POP:
+				stack.pop();
+				break;
+		}
+		switch (saCell.inputOperation) {
+			case INPUT_NOP:
+			case RET:
+				break;
+			case ADV:
+				requireNextSymbol = true;
+				break;
+		}
+		switch (saCell.saCellReturn) {
+			case CONTINUE:
+				break;
+			case ACCEPT:
+				return true;
+			case REJECT:
+				return false;
+		}
+	}
+}
+
 std::ostream& operator<<(std::ostream& stream, const std::set<std::string>& res) {
 	auto p = res.begin();
 	stream << "[";
@@ -508,3 +573,13 @@ bool SaCell::operator<=(const SaCell& rhs) const {
 bool SaCell::operator>=(const SaCell& rhs) const {
 	return !(*this < rhs);
 }
+
+SaCell::SaCell() : stackOperationValue(0) {}
+
+NotLL1Grammar::operator std::string() const {
+	return "table[" + this->stackWord + "][" + this->inputTerminal + "]";
+}
+
+NotLL1Grammar::NotLL1Grammar(std::string stackWord, std::string inputTerminal) : stackWord(std::move(stackWord)),
+                                                                                 inputTerminal(std::move(
+		                                                                                 inputTerminal)) {}
