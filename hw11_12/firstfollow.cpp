@@ -298,6 +298,9 @@ std::vector<std::string> chain(const std::vector<std::string>& vector1, const st
 }
 
 bool Grammar::buildSATable() {
+	if (!saTable.empty()) {
+		saTable.clear();
+	}
 	for (const std::string& word : chain(chain(nonTerminals, terminals), std::set<std::string>{"$"})) {
 		for (const std::string& term : chain(terminals, std::set<std::string>{"$"})) {
 			saTable.emplace(word, std::map<std::string, std::set<SaCell>>());
@@ -484,6 +487,14 @@ bool Grammar::parse(std::istream& stream) {
 	}
 }
 
+const std::map<std::string, std::map<std::string, std::set<SaCell>>>& Grammar::getSaTable() const {
+	return saTable;
+}
+
+const std::vector<std::pair<std::string, std::vector<std::string>>>& Grammar::getEnumeratedRules() const {
+	return enumeratedRules;
+}
+
 std::ostream& operator<<(std::ostream& stream, const std::set<std::string>& res) {
 	auto p = res.begin();
 	stream << "[";
@@ -575,6 +586,17 @@ bool SaCell::operator>=(const SaCell& rhs) const {
 }
 
 SaCell::SaCell() : stackOperationValue(0) {}
+
+bool SaCell::operator==(const SaCell& rhs) const {
+	return inputOperation == rhs.inputOperation &&
+	       stackOperation == rhs.stackOperation &&
+	       saCellReturn == rhs.saCellReturn &&
+	       stackOperationValue == rhs.stackOperationValue;
+}
+
+bool SaCell::operator!=(const SaCell& rhs) const {
+	return !(rhs == *this);
+}
 
 NotLL1Grammar::operator std::string() const {
 	return "table[" + this->stackWord + "][" + this->inputTerminal + "]";

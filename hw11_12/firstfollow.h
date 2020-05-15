@@ -58,6 +58,10 @@ public:
 
 	bool operator<=(const SaCell& rhs) const;
 
+	bool operator==(const SaCell& rhs) const;
+
+	bool operator!=(const SaCell& rhs) const;
+
 	bool operator>=(const SaCell& rhs) const;
 };
 
@@ -100,6 +104,10 @@ public:
 	bool loadGrammar(std::istream& stream);
 
 	bool buildSATable();
+
+	const std::vector<std::pair<std::string, std::vector<std::string>>>& getEnumeratedRules() const;
+
+	const std::map<std::string, std::map<std::string, std::set<SaCell>>>& getSaTable() const;
 
 	void printSATable(std::ostream& stream);
 

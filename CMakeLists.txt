@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.14)
 project(edusandbox)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "-static")
 
 add_executable(t1 executables/t1.cpp)
 
@@ -37,4 +38,4 @@ add_executable(tests_hw10 hw10/list2.cpp hw10/list2.h hw9/list.h hw9/list.cpp te
 
 add_executable(hw11 hw11_12/firstfollow.cpp hw11_12/firstfollow.h executables/hw11.cpp hw3/stringops.cpp hw3/stringops.h)
 add_executable(hw12 hw11_12/firstfollow.cpp hw11_12/firstfollow.h executables/hw12.cpp hw3/stringops.cpp hw3/stringops.h)
-add_executable(tests_hw11 tests/hw11_12.cpp hw11_12/firstfollow.cpp hw11_12/firstfollow.h hw3/stringops.cpp hw3/stringops.h)
+add_executable(tests_hw11_12 tests/hw11_12.cpp hw11_12/firstfollow.cpp hw11_12/firstfollow.h hw3/stringops.cpp hw3/stringops.h)
